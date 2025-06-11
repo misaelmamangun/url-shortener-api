@@ -1,6 +1,5 @@
+import { error } from "console";
 import { UrlController } from "../../src/controllers/url.controller";
-import { IUrlService } from "../../src/interfaces/url.interface";
-import { UrlService } from "../../src/services/url.service";
 
 describe("UrlController", () => {
   let controller: UrlController;
@@ -28,6 +27,10 @@ describe("UrlController", () => {
       send: jest.fn(),
       code: jest.fn().mockReturnThis(),
       redirect: jest.fn(),
+      log: {
+        error: jest.fn(),
+        info: jest.fn(),
+      },
     };
 
     controller = new UrlController(mockUrlService);
@@ -56,6 +59,7 @@ describe("UrlController", () => {
       mockReply
     );
 
+    expect(mockReply.log.error).toHaveBeenCalledWith("URL already shortened");
     expect(mockReply.send).toHaveBeenCalledWith({
       message: "URL already shortened",
     });
