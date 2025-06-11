@@ -2,7 +2,12 @@ import Fastify, { FastifyInstance } from "fastify";
 import { URLRoute } from "./routes/url.route";
 
 export class Server {
-  private readonly app: FastifyInstance = Fastify({ logger: true });
+  private readonly app: FastifyInstance = Fastify({
+    logger: {
+      level: "info",
+      file: "logs/out.log",
+    },
+  });
   constructor() {
     this.routes();
   }

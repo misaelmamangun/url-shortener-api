@@ -19,6 +19,7 @@ export class UrlController {
     const hasUrl = await this.urlService.findByUrl(url);
 
     if (hasUrl) {
+      reply.log.error("URL already shortened");
       return reply.send({
         message: "URL already shortened",
       });
@@ -26,6 +27,7 @@ export class UrlController {
 
     const code = await this.urlService.generateUniqueCode();
     const data = await this.urlService.saveUrl(url, code);
+    reply.log.info("Url created and saved to the database");
 
     reply.send({
       data,
@@ -42,10 +44,12 @@ export class UrlController {
     const record = await this.urlService.findByCode(code);
 
     if (!record) {
+      reply.log.error("Short url not found");
       return reply.code(404).send({ message: "Short URL not found" });
     }
 
     await this.urlService.incrementClick(code);
+    reply.log.info("Redirect to the original url");
 
     return reply.redirect(record.url);
   };
