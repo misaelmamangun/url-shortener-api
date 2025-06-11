@@ -23,9 +23,9 @@ src/
 ├── interfaces/        # Interfaces (contracts)
 ├── routes/            # Route definitions
 ├── services/          # Business logic
-├── utils/             # Helpers (e.g. nanoid generator)
-├── prisma/            # DB schema and migrations
-└── index.ts           # Fastify app entry
+└── utils/             # Helpers (e.g. nanoid generator, prisma)
+
+index.ts               # Fastify app entry point
 ```
 
 ---
